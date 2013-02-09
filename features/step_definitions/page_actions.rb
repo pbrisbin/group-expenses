@@ -1,10 +1,12 @@
 When(/^they visit the "(.*?)" page$/i) do |page|
+
   case page
   when "landing"
     visit '/'
   else
     raise "Unknown page: #{page}"
   end
+
 end
 
 Then(/^they should see a button with text "(.*?)"$/i) do |text|
@@ -13,6 +15,8 @@ Then(/^they should see a button with text "(.*?)"$/i) do |text|
 
 end
 
-Then(/^they should see a link to the "(.*?)" page$/i) do |path|
+Then(/^they should see a link with text "(.*?)"$/i) do |text|
+
+  page.should have_link(text)
 
 end
