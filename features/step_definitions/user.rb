@@ -20,6 +20,16 @@ Given /^an existing user with email "(.*?)" and password "(.*?)"$/i do |email, p
   User.create(:email => email, :password => password)
 end
 
+Given /^No existing user with email "(.*?)"$/ do |email|
+  if user = User.find(email)
+    user.delete
+  end
+end
+
+Then /^A user with email "(.*?)" should exist$/ do |email|
+  User.find(email).should_not be_nil
+end
+
 Then /^they should be logged in$/i do
   visit '/session'
   page.should have_content(/logged in/i)
