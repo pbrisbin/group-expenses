@@ -1,13 +1,13 @@
 <section>
-  <% if @current_user.nil? %>
-    <%= link_to "Sign In", login_path %>
-    <%= link_to "Sign Up", signup_path %>
-  <% else %>
+  <% if !!@current_user %>
     <%= link_to "Your profile", profile_path %>
     <%= link_to "Your groups", groups_path %>
+  <% else %>
+    <%= link_to "Sign In", login_path  %>
+    <%= link_to "Sign Up", signup_path %>
   <% end %>
 </section>
 
-<section>
+<footer>
   <%= link_to "About", about_path %>
-</section>
+</footer>
