@@ -7,10 +7,11 @@ GrpExp::Application.routes.draw do
   match 'login' => 'sessions#new', :as => :login
   match 'logout' => 'sessions#destroy', :as => :logout
 
-  namespace :user do
-    resource :profile
-    resources :groups
-  end
+  resource :profile
+
+  match 'signup' => 'profiles#new', :as => :signup
+
+  resources :groups
 
   root :to => 'welcome#index'
 

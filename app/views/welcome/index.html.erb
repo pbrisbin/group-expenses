@@ -1,10 +1,10 @@
 <section>
   <% if @current_user.nil? %>
     <%= link_to "Sign In", login_path %>
-    <button>Sign Up</button>
+    <%= link_to "Sign Up", signup_path %>
   <% else %>
-    <%= link_to "Your profile", user_profile_path %>
-    <%= link_to "Your groups", user_groups_path %>
+    <%= link_to "Your profile", profile_path %>
+    <%= link_to "Your groups", groups_path %>
   <% end %>
 </section>
 
