@@ -8,7 +8,7 @@ describe Login do
 
   context "execution" do
     before do
-      @user = double("User").as_null_object
+      @user = double("User", :email => 'email').as_null_object
       User.stub(:find).and_return(@user)
     end
 
@@ -43,10 +43,11 @@ describe Login do
         subject.error_message.should be_nil
       end
 
-      it "should store the session id as authenticated" do
-        subject.execute(42)
+      it "should save in the session if given" do
+        session = mock
+        session.should_receive(:save).with(@user)
 
-        Session.authenticated?(42).should be_true
+        subject.execute(session)
       end
 
     end

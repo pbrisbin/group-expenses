@@ -1,5 +1,4 @@
 require 'user'
-require 'session'
 
 class Login
 
@@ -9,11 +8,11 @@ class Login
     @successful = false
   end
 
-  def execute(session_id = nil)
+  def execute(session = nil)
     user = User.find(@email)
 
     if user && user.valid_password?(@password)
-      Session.store(session_id, user) if session_id
+      session.save(user) if session
       @successful = true
     else
       set_error_message(!!user)
