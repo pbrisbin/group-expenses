@@ -1,9 +1,7 @@
-def require_model_for(spec)
-  unless $LOAD_PATH.include?('app/models')
-    $LOAD_PATH.unshift('app/models')
-  end
+require 'active_support/core_ext'
+require 'active_support/dependencies'
 
-  if m = /models\/(?<model>.*)_spec.rb/.match(spec)
-    require m[:model]
-  end
+%w( lib app/models ).each do |dir|
+  $LOAD_PATH << dir
+  ActiveSupport::Dependencies.autoload_paths << dir
 end

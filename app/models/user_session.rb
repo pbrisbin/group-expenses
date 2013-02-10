@@ -1,8 +1,6 @@
-require 'user'
-
 class UserSession
   KEY     = :user_session
-  TIMEOUT = 2 * 60 * 60
+  TIMEOUT = 2.hours
 
   def initialize(store = {})
     @store = store

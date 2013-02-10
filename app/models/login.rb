@@ -1,5 +1,3 @@
-require 'user'
-
 class Login
 
   def initialize(email, password)

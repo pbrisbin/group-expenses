@@ -1,5 +1,4 @@
 require 'spec_helper'
-require_model_for(__FILE__)
 
 describe User do
   it "can be created and subsequently found" do

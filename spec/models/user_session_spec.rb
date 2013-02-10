@@ -1,5 +1,4 @@
 require 'spec_helper'
-require_model_for(__FILE__)
 
 describe UserSession do
 

@@ -1,6 +1,3 @@
-require 'set'
-require 'method_options'
-
 class User
   include MethodOptions
 
