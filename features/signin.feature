@@ -10,8 +10,8 @@ Feature: Sign in
     Given A non-logged in user
       And An existing user with email "foo" and password "bar"
      When They visit the "login" page
-      And They fill in "email" as "foo"
-      And They fill in "password" as "bar"
+      And They fill in "Email" as "foo"
+      And They fill in "Password" as "bar"
       And They click "Login"
      Then They should be taken to the "landing" page
       And They should be logged in
