@@ -1,9 +1,13 @@
 # Group Expenses
 
-This is a sample Rails application for exploring some ideas around 
-testing rails. The general idea is to allow roomates (or any group of 
-people) to input shared expenses then calculate who owes whom what as 
-reimbursements are made and new expenses come in.
+This is a sample Rails application for exploring some things I've been 
+thinking about w.r.t. testing rails applications.
+
+## Site features
+
+The general idea is to allow roomates (or any group of people) to input 
+shared expenses then calculate who owes whom what as reimbursements are 
+made and new expenses come in.
 
 Complexity is important to vet the concepts I'm exploring, so 
 additional, ancillary features will eventually be added.
@@ -19,27 +23,43 @@ development down any one particular path, but it will ensure that
 development goes down *their* path in such a way that the codebase 
 remains maintainable (and fun) as time goes on and complexity creeps in.
 
+Rails has a lot to offer by way of convenience and productivity. I hope 
+to find an approach that does not throw the baby out with the bathwater 
+and in stead leverages The Rails Way during the times when it's useful 
+but also provides enough push back to prevent you from coding yourself 
+into a corner when application begins to outgrow the framework.
+
 ### Acceptance tests
 
 Place cucumber-based acceptance tests in `features`. These tests 
 should be end-to-end, happy-path smoke tests at the highest level of 
-functionality. They should be *slow*. They should only be run 
-periodically and must be green before any kind of release.
+functionality. These should be *slow*.
 
-This is the only test suite that *must* be green before release, though 
-all suites *should* be green always.
+#### When to run
+
+* Once, overnight, by the CI server
+* Must be green before any release
+
+#### How to run
+
+* `cucumber`
+* `rake cucumber`
 
 ### Rails tests
 
 Use normal, rails patterns for testing your `ActiveRecord` based models 
 and `ActionController` based controllers in `test/unit` and 
-`test/functional` respectively.
+`test/functional` respectively. These tests will be slower since they 
+must boot rails and will inevitably use the database. *That's OK!*
 
-These tests will be slower since they must boot rails and will 
-inevitably use the database. *That's OK!*
+#### When to run
 
-These tests should only be run if/when you create or edit one of these 
-models or controllers.
+* Any time you touch a framework class
+* Should be green before any release
+
+#### How to run
+
+* `rake test`
 
 The above is a very common approach, it's easy to just stop here. I 
 think you'll find though that the Rails Tests get slower and slower and 
@@ -58,10 +78,17 @@ honest-to-god Unit Tests of any POROs you create.
 Notice I'm not telling you to create more POROs, I'm just telling you to 
 have a dedicated suite for them.
 
-These tests should be run after every single change and should be green 
-before any commits are pushed public.
-
 These tests will always be *Fast*.
+
+#### When to run
+
+* Every single change
+* Must be green before pushing
+* Should be green before any release
+
+#### How to run
+
+* `rspec`
 
 ===
 
