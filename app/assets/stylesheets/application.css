@@ -12,3 +12,16 @@
  *= require foundation_and_overrides
  *= require_tree .
  */
+a.button {
+  width:  200px;
+  margin: 10px 5px;
+}
+
+section[role="main"] {
+  width: 80%;
+  margin: auto;
+}
+
+footer {
+  text-align: center;
+}

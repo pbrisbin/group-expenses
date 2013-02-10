@@ -1,14 +1,28 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Group Expenses</title>
-  <%= stylesheet_link_tag    "application", :media => "all" %>
-  <%= javascript_include_tag "application" %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
+  <head>
+    <title>Group Expenses</title>
+    <%= stylesheet_link_tag    "application", :media => "all" %>
+    <%= javascript_include_tag "application" %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
+    <header class="row">
+      <h1>Group Expenses</h1>
+      <h4 class="subheader">They suck!</h4>
+    </header>
 
-<%= yield %>
+    <div class="row">
+      <section role="main">
+        <%= render :partial => 'flashes' %>
+        <%= yield %>
+      </section>
+    </div>
 
-</body>
+    <hr>
+
+    <footer class="row">
+      <%= link_to "About", about_path %>
+    </footer>
+  </body>
 </html>
