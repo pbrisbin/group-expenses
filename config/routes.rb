@@ -2,7 +2,7 @@ GrpExp::Application.routes.draw do
 
   match 'about' => 'about#index', :as => :about
 
-  resources :sessions
+  resource :session
 
   match 'login' => 'sessions#new', :as => :login
   match 'logout' => 'sessions#destroy', :as => :logout

@@ -14,9 +14,7 @@ class SessionsControllerTest < ActiveSupport::TestCase
   end
 
   def test_create
-    post :create,
-      :email    => 'jim@gmail.com',
-      :password => 'secret'
+    login('jim@gmail.com', 'secret')
 
     assert_not_nil @controller.user_session.user
 
@@ -25,9 +23,7 @@ class SessionsControllerTest < ActiveSupport::TestCase
   end
 
   def test_create_with_invalid_user
-    post :create,
-      :email    => 'foo@bar.com',
-      :password => 'secret'
+    login('foo@bar.com', 'secret')
 
     assert_nil @controller.user_session.user
 
@@ -36,14 +32,28 @@ class SessionsControllerTest < ActiveSupport::TestCase
   end
 
   def test_create_with_invalid_password
-    post :create,
-      :email    => 'jim@gmail.com',
-      :password => 'invalid'
+    login('jim@gmail.com', 'invalid')
 
     assert_nil @controller.user_session.user
 
     assert_redirected_to :action => :new
     assert_match(/invalid password/i, flash[:error])
+  end
+
+  def test_show
+    get :show
+    assert_match(/not logged in/i, @response.body)
+
+    login('jim@gmail.com', 'secret')
+
+    get :show
+    assert_match(/logged in as jim@gmail\.com/i, @response.body)
+  end
+
+  private
+
+  def login(email, password)
+    post :create, :email => email, :password => password
   end
 
 end

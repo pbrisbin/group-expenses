@@ -1,6 +1,6 @@
 <section>
   <% if @current_user.nil? %>
-    <button>Sign In</button>
+    <%= link_to "Sign In", login_path %>
     <button>Sign Up</button>
   <% else %>
     <%= link_to "Your profile", user_profile_path %>
