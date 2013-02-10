@@ -25,13 +25,22 @@ class User
     @users << instance
   end
 
+  def self.remove(instance)
+    @users && @users.delete(instance)
+  end
+
   def initialize(email, password)
     @email = email
     @password = password
   end
 
+  # TODO: rename this
   def valid_password?(password)
     password == @password
+  end
+
+  def delete
+    self.class.remove(self)
   end
 
   protected
