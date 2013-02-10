@@ -13,6 +13,8 @@ gem 'jquery-rails'
 gem 'unicorn'
 
 group :test do
+  gem 'timecop'
+  gem 'mocha', :require => false
   gem 'rspec', '~> 2.12'
   gem 'cucumber-rails', :require => false
   gem 'database_cleaner'
