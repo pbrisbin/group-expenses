@@ -1,0 +1,15 @@
+<%
+  flashes = {
+    :notice => 'success',
+    :warn   => 'secondary',
+    :error  => 'alert'
+  }
+%>
+<% flashes.each do |k,klass| %>
+  <% if value = flash[k] %>
+    <div class="alert-box <%= klass %>">
+      <%= value %>
+      <a href="" class="close">&times;</a>
+    </div>
+  <% end %>
+<% end %>
