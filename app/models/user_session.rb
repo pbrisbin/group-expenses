@@ -7,16 +7,23 @@ class UserSession
   end
 
   def user
-    email = store[:email]
-    email && User.find(email)
+    id = store[:user_id]
+    id && User.find_by_id(id)
   end
 
   def save(user)
-    store[:email]   = user.email
+    store[:user_id] = user.id
     store[:expires] = Time.now + TIMEOUT
   end
+
+  def destroy
+    @store[KEY] = nil
+  end
+
+  private
 
   def store
     @store[KEY] ||= {}
   end
+
 end

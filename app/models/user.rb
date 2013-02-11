@@ -1,52 +1,15 @@
-class User
-  include MethodOptions
-
-  attr_reader :email
-
-  def self.create(options)
-    email    = required(options, :email)
-    password = required(options, :password)
-
-    instance = new(email, password)
-
-    if options.fetch(:persist, true)
-      store(instance)
-    end
-
-    instance
+class User < ActiveRecord::Base
+  def credentials
+    Credentials.new(
+      :email => self.email,
+      :salt  => self.salt,
+      :password_hash => self.password
+    )
   end
 
-  def self.find(email)
-    @users && @users.detect { |u| u.email == email }
+  def credentials=(credentials)
+    self.email    = credentials.email
+    self.password = credentials.password_hash
+    self.salt     = credentials.salt
   end
-
-  def self.store(instance)
-    @users ||= Set.new
-    @users << instance
-  end
-
-  def self.remove(instance)
-    @users && @users.delete(instance)
-  end
-
-  def initialize(email, password)
-    @email = email
-    @password = password
-  end
-
-  # TODO: rename this
-  def valid_password?(password)
-    password == @password
-  end
-
-  def delete
-    self.class.remove(self)
-  end
-
-  protected
-
-  def ==(other)
-    email == other.email
-  end
-
 end

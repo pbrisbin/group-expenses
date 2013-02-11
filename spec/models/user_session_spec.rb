@@ -3,22 +3,23 @@ require 'spec_helper'
 describe UserSession do
 
   let(:store) { {} }
-  let(:user)  { double("User", :email => 'email') }
+  let(:user)  { double("User", :id => 42) }
 
-  it "should save the user by email" do
+  it "should store and find the user by id" do
     user_session = UserSession.new(store)
     user_session.save(user)
 
-    store[UserSession::KEY][:email].should == 'email'
-  end
-
-  it "should find the user by email" do
-    User.should_receive(:find).with('email').and_return(user)
-
-    user_session = UserSession.new(store)
-    user_session.save(user)
+    User.should_receive(:find_by_id).with(42).and_return(user)
 
     user_session.user.should == user
+  end
+
+  it "should be destroyable" do
+    user_session = UserSession.new(store)
+    user_session.save(user)
+
+    user_session.destroy
+    user_session.user.should be_nil
   end
 
 end
