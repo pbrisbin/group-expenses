@@ -1,59 +1,53 @@
 require 'test_helper'
 
-class ProfilesControllerTest < ActiveSupport::TestCase
+class ProfilesControllerTest < ActionController::TestCase
 
   def test_create
-    options = fake_params
+    post :create,
+      :email    => 'jim@gmail.com',
+      :password => 'secret',
+      :confirm  => 'secret'
 
-    create_user = mock
-    create_user.expects(:subscribe).with(kind_of(listener_class))
-    create_user.expects(:create!)
+    assert_redirected_to :root
+    assert_match(/success/i, flash[:notice])
 
-    CreateUser.expects(:new).with(has_entries(options)).returns(create_user)
-
-    # prevents missing template error. other tests assert the action
-    # will redirect via the Listener object.
-    @controller.stubs(:render)
-
-    post :create, options
+    assert_not_nil User.find_by_email('jim@gmail.com')
   end
 
-  def test_create_listener_success
-    listener_test(:success) do |controller|
-      controller.flash.expects(:[]=).with(:notice, "Profile successfully created")
-      controller.expects(:redirect_to).with(:root)
+  def test_create_existing_user
+    create_user('jim@gmail.com')
+
+    assert_no_difference 'User.count' do
+      post :create,
+        :email    => 'jim@gmail.com',
+        :password => 'secret',
+        :confirm  => 'secret'
     end
+
+    assert_redirected_to :action => :new
+    assert_not_nil flash[:error]
   end
 
-  def test_create_listener_failure
-    listener_test(:failure, "Error") do |controller|
-      controller.flash.expects(:[]=).with(:error, "Error")
-      controller.expects(:redirect_to).with(:action => :new)
-    end
+  def test_create_empty_email
+
+  end
+
+  def test_create_empty_password
+
+  end
+
+  def test_create_password_mismatch
+
   end
 
   private
 
-  def fake_params
-    HashWithIndifferentAccess.new({
-      :foo => "foo",
-      :bar => "bar"
-    })
-  end
-
-  def listener_class
-    ProfilesController::CreateListener
-  end
-
-  def listener_test(method, *args)
-    flash = mock
-    controller = mock
-    controller.stubs(:flash).returns(flash)
-
-    yield(controller)
-
-    listener = listener_class.new(controller)
-    listener.send(method, *args)
+  def create_user(email, password = 'secret')
+    user = User.new
+    user.email = email
+    user.salt  = ''
+    user.password = password
+    user.save!
   end
 
 end

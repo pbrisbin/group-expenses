@@ -3,6 +3,13 @@ class ApplicationController < ActionController::Base
 
   before_filter :setup_user_session
 
+  rescue_from(UserError) do |ex|
+    Rails.logger.error("[UserError]: #{ex}")
+
+    flash[:error] = "#{ex}"
+    redirect_back
+  end
+
   attr_accessor :user_session, :current_user
 
   private
@@ -12,4 +19,9 @@ class ApplicationController < ActionController::Base
     @current_user = @user_session.user
   end
 
+  def redirect_back(default = :root)
+    redirect_to :back
+  rescue ActionController::RedirectBackError
+    redirect_to default
+  end
 end

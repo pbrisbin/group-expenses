@@ -1,25 +1,28 @@
 class SessionsController < ApplicationController
 
+  def show
+  end
+
   def new
   end
 
   def create
-    login = Login.new(params[:email], params[:password])
-    login.execute(user_session)
+    user = User.find_by_email(params[:email]) or
+      raise UserError, "Unable to find a user by that email"
 
-    if login.successful?
-      flash[:notice] = "You have been logged in"
-      redirect_to :root
-    else
-      flash[:error] = login.error_message
-      redirect_to :action => :new
-    end
+    credentials = Credentials.new(params)
+
+    user.credentials == credentials or
+      raise UserError, "Invalid credentials"
+
+    user_session.save(user)
+
+    flash[:notice] = "You have been logged in"
+    redirect_to :root
   end
 
   def destroy
-  end
-
-  def show
+    user_session.destroy
   end
 
 end

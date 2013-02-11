@@ -1,14 +1,13 @@
 require 'test_helper'
 
-class SessionsControllerTest < ActiveSupport::TestCase
+class SessionsControllerTest < ActionController::TestCase
 
   def setup
-    super
-
-    User.create(
-      :email    => 'jim@gmail.com',
-      :password => 'secret'
-    )
+    user = User.new
+    user.email = 'jim@gmail.com'
+    user.salt  = ''
+    user.password = 'secret'
+    user.save!
 
     @controller.user_session = UserSession.new
   end
@@ -27,8 +26,8 @@ class SessionsControllerTest < ActiveSupport::TestCase
 
     assert_nil @controller.user_session.user
 
-    assert_redirected_to :action => :new
-    assert_match(/user not found/i, flash[:error])
+    assert_response :redirect
+    assert_match(/unable to find/i, flash[:error])
   end
 
   def test_create_with_invalid_password
@@ -36,8 +35,8 @@ class SessionsControllerTest < ActiveSupport::TestCase
 
     assert_nil @controller.user_session.user
 
-    assert_redirected_to :action => :new
-    assert_match(/invalid password/i, flash[:error])
+    assert_response :redirect
+    assert_match(/invalid/i, flash[:error])
   end
 
   def test_show

@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class WelcomeControllerTest < ActiveSupport::TestCase
+class WelcomeControllerTest < ActionController::TestCase
   def test_index
     get :index
     assert_response :success
