@@ -1,12 +1,16 @@
 Given /^a non-logged in user$/i do
-  @current_user = nil
 end
 
 Given /^a logged in user$/i do
-  @current_user = User.create(
+  credentials = Credentials.new(
     :email    => 'jim@gmail.com',
-    :password => 'secret'
+    :password => 'secret',
+    :confirm  => 'secret'
   )
+
+  user = User.new
+  user.credentials = credentials
+  user.save!
 
   visit '/login'
 
@@ -17,17 +21,25 @@ Given /^a logged in user$/i do
 end
 
 Given /^an existing user with email "(.*?)" and password "(.*?)"$/i do |email, password|
-  User.create(:email => email, :password => password)
+  credentials = Credentials.new(
+    :email    => email,
+    :password => password,
+    :confirm  => password
+  )
+
+  user = User.new
+  user.credentials = credentials
+  user.save!
 end
 
 Given /^No existing user with email "(.*?)"$/ do |email|
-  if user = User.find(email)
+  if user = User.find_by_email(email)
     user.delete
   end
 end
 
 Then /^A user with email "(.*?)" should exist$/ do |email|
-  User.find(email).should_not be_nil
+  User.find_by_email(email).should_not be_nil
 end
 
 Then /^they should be logged in$/i do
