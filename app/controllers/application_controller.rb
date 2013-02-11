@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   before_filter :setup_user_session
 
   rescue_from(UserError) do |ex|
-    Rails.logger.error("[UserError]: #{ex}")
+    logger.error("[UserError]: #{ex}")
 
     flash[:error] = "#{ex}"
     redirect_back
