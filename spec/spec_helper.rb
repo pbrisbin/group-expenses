@@ -5,3 +5,8 @@ require 'active_support/dependencies'
   $LOAD_PATH << dir
   ActiveSupport::Dependencies.autoload_paths << dir
 end
+
+module ActiveRecord
+  class Base
+  end
+end
