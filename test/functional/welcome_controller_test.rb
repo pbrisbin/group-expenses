@@ -1,13 +1,15 @@
 require 'test_helper'
 
 class WelcomeControllerTest < ActionController::TestCase
+  include ControllerStubs
+
   def test_index
     get :index
     assert_response :success
   end
 
   def test_index_logged_in
-    @controller.current_user = User.new('', '')
+    stub_current_user
 
     get :index
     assert_response :success

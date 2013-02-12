@@ -19,13 +19,36 @@ module MockParams
   end
 end
 
-module StubSession
+module ControllerStubs
 
   private
 
-  def stub_new_sessions(session = UserSession.new)
-    UserSession.stubs(:new).returns(session)
+  def stub_user_session(session = user_session_stub)
+    @controller.stubs(:user_session).returns(session)
 
     session
+  end
+
+  def stub_current_user(user = user_stub)
+    @controller.stubs(:current_user).returns(user)
+
+    user
+  end
+
+  def user_stub
+    stub(
+      "User",
+      :email    => 'email',
+      :password => 'password'
+    )
+  end
+
+  def user_session_stub
+    stub(
+      "Session",
+      :user    => nil,
+      :save    => true,
+      :destroy => true
+    )
   end
 end

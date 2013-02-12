@@ -2,17 +2,15 @@ require 'test_helper'
 
 class SessionsControllerTest < ActionController::TestCase
   include MockParams
-  include StubSession
-
-  def setup
-    @user_session = stub_new_sessions
-  end
+  include ControllerStubs
 
   def test_create
     options = mock_params
 
+    user_session = stub_user_session
+
     login = mock
-    login.expects(:execute).with(@user_session)
+    login.expects(:execute).with(user_session)
 
     Login.expects(:new).with(has_entries(options)).returns(login)
 
@@ -23,21 +21,20 @@ class SessionsControllerTest < ActionController::TestCase
   end
 
   def test_show
-    @user_session.stubs(:user).returns(nil)
-
     get :show
     assert_match(/not logged in/i, @response.body)
+  end
 
-    @user_session.stubs(:user).returns(
-      stub(:email => 'jim@gmail.com')
-    )
+  def test_show_logged_in
+    user = stub_current_user
 
     get :show
-    assert_match(/logged in as jim@gmail\.com/i, @response.body)
+    assert_match(/logged in as #{user.email}/i, @response.body)
   end
 
   def test_destroy
-    @user_session.expects(:destroy)
+    user_session = stub_user_session
+    user_session.expects(:destroy)
 
     delete :destroy
 
