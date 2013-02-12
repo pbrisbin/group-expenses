@@ -1,10 +1,11 @@
 require 'test_helper'
 
 class SessionsControllerTest < ActionController::TestCase
+  include MockParams
+  include StubSession
 
   def setup
-    @user_session = UserSession.new
-    UserSession.stubs(:new).returns(@user_session)
+    @user_session = stub_new_sessions
   end
 
   def test_create
@@ -42,14 +43,6 @@ class SessionsControllerTest < ActionController::TestCase
 
     assert_redirected_to :root
     assert_match(/you have been logged out/i, flash[:notice])
-  end
-
-  private
-
-  def mock_params
-    HashWithIndifferentAccess.new({
-      :foo => 'foo', :bar => 'bar'
-    })
   end
 
 end
