@@ -12,6 +12,8 @@ class ApplicationController < ActionController::Base
 
   attr_accessor :user_session, :current_user
 
+  helper_method :current_user
+
   private
 
   def setup_user_session
