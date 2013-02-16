@@ -26,4 +26,11 @@ class ApplicationController < ActionController::Base
   rescue ActionController::RedirectBackError
     redirect_to default
   end
+
+  def require_current_user
+    unless current_user
+      flash[:error] = "You must be logged in to view this page"
+      redirect_back
+    end
+  end
 end

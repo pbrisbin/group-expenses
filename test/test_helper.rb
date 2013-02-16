@@ -52,3 +52,19 @@ module ControllerStubs
     )
   end
 end
+
+module Factories
+  def new_user(options = {}, save = false)
+    user = User.new
+    user.email    = options.fetch(:email, 'email')
+    user.salt     = options.fetch(:salt, 'salt')
+    user.password = options.fetch(:password, 'hash')
+    user.save! if save
+
+    user
+  end
+
+  def create_user(options)
+    new_user(options, true)
+  end
+end
