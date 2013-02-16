@@ -13,3 +13,7 @@ end
 Then /^they should see a link with text "(.*?)"$/i do |text|
   page.should have_link(text)
 end
+
+Then /^they should see "(.*?)"$/i do |text|
+  page.should have_content(text)
+end

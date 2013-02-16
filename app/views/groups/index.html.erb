@@ -1,0 +1,19 @@
+<section class="row">
+
+  <% if @groups.any? %>
+    <ul>
+      <% @groups.each do |group| %>
+        <li><%= group.name %></li>
+      <% end %>
+    </ul>
+  <% else %>
+    <div class="row">
+      <p>You have no groups yet!</p>
+    </div>
+  <% end %>
+
+  <div class="row">
+    <%= link_to "Create group", new_group_path %>
+  </div>
+
+</section>

@@ -14,12 +14,15 @@
 ActiveRecord::Schema.define(:version => 20130216190216) do
 
   create_table "groups", :force => true do |t|
-    t.string "name", :default => ""
+    t.string "name",       :default => "", :null => false
+    t.string "join_token",                 :null => false
   end
 
-  create_table "groups_users", :force => true do |t|
-    t.integer "group_id", :null => false
+  add_index "groups", ["join_token"], :name => "index_groups_on_join_token", :unique => true
+
+  create_table "memberships", :force => true do |t|
     t.integer "user_id",  :null => false
+    t.integer "group_id", :null => false
   end
 
   create_table "users", :force => true do |t|

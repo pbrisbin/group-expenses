@@ -5,7 +5,7 @@ class GroupsControllerTest < ActionController::TestCase
 
   def test_index
     user   = stub_current_user
-    groups = stub("Groups")
+    groups = 3.times.map { Group.new }
 
     user.expects(:groups).returns(groups)
 

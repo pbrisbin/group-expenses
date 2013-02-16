@@ -1,5 +1,16 @@
 class Group < ActiveRecord::Base
 
-  has_and_belongs_to_many :users
+  has_many :memberships
+  has_many :users, :through => :memberships
+
+  before_create :assign_join_token
+
+  private
+
+  def assign_join_token
+    self.join_token = Digest::SHA1.hexdigest(
+      Array.new(6) { rand(256).chr }.join
+    )
+  end
 
 end

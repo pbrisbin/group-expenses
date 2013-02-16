@@ -8,9 +8,9 @@ Given /^a logged in user$/i do
     :confirm  => 'secret'
   )
 
-  user = User.new
-  user.credentials = credentials
-  user.save!
+  @user = User.new
+  @user.credentials = credentials
+  @user.save!
 
   visit '/login'
 
@@ -36,6 +36,17 @@ Given /^No existing user with email "(.*?)"$/ do |email|
   if user = User.find_by_email(email)
     user.delete
   end
+end
+
+Given /^that user has (\d+) groups$/i do |n|
+  n.to_i.times do |i|
+    group = Group.new
+    group.name = "Group #{i+1}"
+
+    @user.groups << group
+  end
+
+  @user.save!
 end
 
 Then /^A user with email "(.*?)" should exist$/ do |email|
