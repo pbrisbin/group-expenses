@@ -10,6 +10,13 @@ class GroupsController < ApplicationController
   end
 
   def create
+    group = Group.new
+    group.name  = params[:name]
+    group.users = [current_user]
+    group.save!
+
+    flash[:notice] = "Group successfully created"
+    redirect_to :action => :index
   end
 
 end

@@ -64,7 +64,7 @@ module Factories
     user
   end
 
-  def create_user(options)
+  def create_user(options = {})
     new_user(options, true)
   end
 end
