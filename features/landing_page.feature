@@ -4,8 +4,8 @@ Feature: The landing page
 
     Given A non-logged in user
      When they visit the "landing" page
-     Then they should see a link with text "Sign In"
-      And they should see a link with text "Sign Up"
+     Then they should see a link with text "Sign in"
+      And they should see a link with text "Sign up"
       And they should see a link with text "About"
 
   Scenario: Authenticated visitor

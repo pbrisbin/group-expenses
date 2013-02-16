@@ -3,7 +3,7 @@ Feature: Sign up
   Scenario: Getting to Sign up
     Given A non-logged in user
      When They visit the "landing" page
-      And They click "Sign Up"
+      And They click "Sign up"
      Then They should be taken to the "signup" page
 
   Scenario: Signing up

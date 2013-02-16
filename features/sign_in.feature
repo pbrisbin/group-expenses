@@ -3,7 +3,7 @@ Feature: Sign in
   Scenario: Getting to Sign in
     Given A non-logged in user
      When They visit the "landing" page
-      And They click "Sign In"
+      And They click "Sign in"
      Then They should be taken to the "login" page
 
   Scenario: Signing in
