@@ -3,7 +3,7 @@ class CreateUserData < ActiveRecord::Migration
     create_table(:users) do |t|
       t.string :email,    :null => false
       t.string :password, :null => false
-      t.string :salt,     :null => false
+      t.string :confirm
     end
 
     add_index(:users, :email, :unique => true)

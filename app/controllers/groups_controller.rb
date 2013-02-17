@@ -1,7 +1,5 @@
 class GroupsController < ApplicationController
 
-  before_filter :require_current_user
-
   def index
     @groups = current_user.groups
   end
@@ -9,14 +7,26 @@ class GroupsController < ApplicationController
   def new
   end
 
+  def show
+    @group = Group.find(params[:id])
+  end
+
   def create
-    group = Group.new
-    group.name  = params[:name]
-    group.users = [current_user]
-    group.save!
+    options = {
+      :name  => params[:name],
+      :users => [current_user]
+    }
+
+    group = Group.create!(options)
 
     flash[:notice] = "Group successfully created"
-    redirect_to :action => :index
+    redirect_to group
+
+  rescue => ex
+    logger.error "#{ex}: #{ex.backtrace.join("\t\n")}"
+
+    flash[:error] = "#{ex}"
+    redirect_to :action => :new
   end
 
 end

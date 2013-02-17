@@ -1,12 +1,20 @@
 class ProfilesController < ApplicationController
+
   def new
   end
 
   def create
-    create_user = CreateUser.new(params)
-    create_user.execute(user_session)
+    user = User.create!(params.slice(:email, :password, :confirm))
 
-    flash[:notice] = "Profile successfully created"
+    session[:user_id] = user.id
+
+    flash[:notice] = "Profile created"
     redirect_to :root
+  rescue => ex
+    logger.error "#{ex}: #{ex.backtrace.join("\t\n")}"
+
+    flash[:error] = "#{ex}"
+    redirect_to :action => :new
   end
+
 end

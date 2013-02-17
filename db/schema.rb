@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(:version => 20130216190216) do
   create_table "users", :force => true do |t|
     t.string "email",    :null => false
     t.string "password", :null => false
-    t.string "salt",     :null => false
+    t.string "confirm"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

@@ -1,19 +1,22 @@
 class User < ActiveRecord::Base
+  validates_presence_of :email
+  validates_presence_of :password
+
+  validates_uniqueness_of :email
+
+  validate :valid_confirmation
+
+  attr_accessible :email, :password, :confirm
 
   has_many :memberships
   has_many :groups, :through => :memberships
 
-  def credentials
-    Credentials.new(
-      :email => self.email,
-      :salt  => self.salt,
-      :password_hash => self.password
-    )
+  private
+
+  def valid_confirmation
+    if self.password != self.confirm
+      errors.add(:confirm, "does not match password")
+    end
   end
 
-  def credentials=(credentials)
-    self.email    = credentials.email
-    self.password = credentials.password_hash
-    self.salt     = credentials.salt
-  end
 end

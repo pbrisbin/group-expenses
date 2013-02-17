@@ -1,0 +1,5 @@
+<%= form_tag memberships_path do %>
+  <label for="token">Token</label>
+  <%= text_field_tag :token, @token %>
+  <%= submit_tag "Join" %>
+<% end %>

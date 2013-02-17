@@ -1,12 +1,9 @@
 <% if !!current_user %>
-  <div class="row">
-    <%= link_to "Your groups", groups_path, :class => 'large radius button' %>
-  </div>
+  <%= link_to "Your groups", groups_path %>
+  <%= link_to "New group", new_group_path %>
+  <%= link_to "Join group", new_membership_path %>
+  <%= link_to "Sign out", session_path, :method => :delete %>
 <% else %>
-  <div class="row">
-    <%= link_to "Sign in", login_path,  :class => 'large radius button' %>
-  </div>
-  <div class="row">
-    <%= link_to "Sign up", signup_path, :class => 'large radius button' %>
-  </div>
+  <%= link_to "Sign in", new_session_path %>
+  <%= link_to "Sign up", new_profile_path %>
 <% end %>

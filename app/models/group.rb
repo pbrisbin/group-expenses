@@ -5,6 +5,8 @@ class Group < ActiveRecord::Base
 
   before_create :assign_join_token
 
+  attr_accessible :name, :users
+
   private
 
   def assign_join_token

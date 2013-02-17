@@ -1,36 +1,17 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
-  before_filter :setup_user_session
-
-  rescue_from(UserError) do |ex|
-    logger.error("[UserError]: #{ex}")
-
-    flash[:error] = "#{ex}"
-    redirect_back
+  def current_user
+    @current_user ||= find_current_user
   end
-
-  attr_accessor :user_session, :current_user
 
   helper_method :current_user
 
   private
 
-  def setup_user_session
-    @user_session = UserSession.new(session)
-    @current_user = @user_session.user
+  def find_current_user
+    id = session[:user_id]
+    id && User.find_by_id(id)
   end
 
-  def redirect_back(default = :root)
-    redirect_to :back
-  rescue ActionController::RedirectBackError
-    redirect_to default
-  end
-
-  def require_current_user
-    unless current_user
-      flash[:error] = "You must be logged in to view this page"
-      redirect_back
-    end
-  end
 end
