@@ -14,4 +14,17 @@ class ApplicationController < ActionController::Base
     id && User.find_by_id(id)
   end
 
+  def require_current_user
+    if current_user.nil?
+      flash[:error] = "You must be logged in to access this page"
+      redirect_back
+    end
+  end
+
+  def redirect_back(default = :root)
+    redirect_to :back
+  rescue ActionController::RedirectBackError
+    redirect_to default
+  end
+
 end

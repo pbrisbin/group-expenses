@@ -1,9 +1,21 @@
 <% if !!current_user %>
-  <%= link_to "Your groups", groups_path %>
-  <%= link_to "New group", new_group_path %>
-  <%= link_to "Join group", new_membership_path %>
-  <%= link_to "Sign out", session_path, :method => :delete %>
+  <div class="row">
+    <%= link_to "Your groups", groups_path %>
+  </div>
+  <div class="row">
+    <%= link_to "New group", new_group_path %>
+  </div>
+  <div class="row">
+    <%= link_to "Join group", new_membership_path %>
+  </div>
+  <div class="row">
+    <%= link_to "Sign out", session_path, :method => :delete %>
+  </div>
 <% else %>
-  <%= link_to "Sign in", new_session_path %>
-  <%= link_to "Sign up", new_profile_path %>
+  <div class="row">
+    <%= link_to "Sign in", new_session_path %>
+  </div>
+  <div class="row">
+    <%= link_to "Sign up", new_profile_path %>
+  </div>
 <% end %>

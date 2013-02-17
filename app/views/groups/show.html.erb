@@ -1,9 +1,6 @@
 <h2>Group - <%= @group.name %></h2>
 
 <div id="join-token" class="row">
-  <%= @group.join_token %>
-</div>
-
-<div id="join-url" class="row">
-  <%= new_membership_url %>?token=<%= @group.join_token %>
+  <p><strong>Token:</strong> <%= @group.join_token %></p>
+  <p>Give this token to your friends so they can join your group!</p>
 </div>

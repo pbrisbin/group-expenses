@@ -1,5 +1,7 @@
 class MembershipsController < ApplicationController
 
+  before_filter :require_current_user
+
   def new
     @token = params[:token]
   end

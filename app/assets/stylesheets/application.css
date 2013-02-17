@@ -12,11 +12,3 @@
  *= require foundation_and_overrides
  *= require_tree .
  */
-section[role="main"] {
-  width: 70%;
-  margin: auto;
-}
-
-footer {
-  text-align: center;
-}
