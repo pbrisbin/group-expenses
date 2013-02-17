@@ -1,7 +1,4 @@
 class UserSession
-  KEY     = :user_session
-  TIMEOUT = 2.hours
-
   def initialize(store = {})
     @store = store
   end
@@ -13,17 +10,14 @@ class UserSession
 
   def save(user)
     store[:user_id] = user.id
-    store[:expires] = Time.now + TIMEOUT
   end
 
   def destroy
-    @store[KEY] = nil
+    store.delete(:user_id)
   end
 
   private
 
-  def store
-    @store[KEY] ||= {}
-  end
+  attr_reader :store
 
 end
