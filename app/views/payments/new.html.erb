@@ -2,7 +2,7 @@
   <%= hidden_field_tag :group_id, @group_id %>
 
   <label for="amount">Amount</label>
-  <%= number_field_tag :amount %>
+  <%= text_field_tag :amount %>
   <label for="payee">To</label>
   <%= select_tag :payee, options_for_select(@emails) %>
   <%= submit_tag 'Submit' %>
