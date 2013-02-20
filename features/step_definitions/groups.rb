@@ -13,14 +13,12 @@ Given /^a group with members "(.*)"$/i do |names|
 
   click_on 'Create'
 
-  token = find('.group-list-item .token .content').text
+  join_link = find('a:contains("Join link")')['href']
 
   joiners.each do |name|
     sign_in(name)
 
-    click_on 'Join an existing group'
-
-    fill_in 'Token', :with => token
+    visit join_link
 
     click_on 'Join'
   end
