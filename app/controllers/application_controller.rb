@@ -1,6 +1,13 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
+  rescue_from(StandardError) do |ex|
+    logger.error("#{ex}: #{ex.backtrace.join("\t\n")}")
+
+    flash[:error] = "#{ex.message}"
+    redirect_back
+  end
+
   def current_user
     @current_user ||= find_current_user
   end
@@ -25,17 +32,6 @@ class ApplicationController < ActionController::Base
     redirect_to :back
   rescue ActionController::RedirectBackError
     redirect_to default
-  end
-
-  def rescuing_back
-
-    yield
-
-  rescue => ex
-    logger.error("#{ex}: #{ex.backtrace.join("\t\n")}")
-
-    flash[:error] = "#{ex.message}"
-    redirect_back
   end
 
 end
