@@ -1,4 +1,11 @@
 class User < ActiveRecord::Base
+
+  has_many :memberships
+  has_many :groups, :through => :memberships
+
+  has_many :expenses
+  has_many :payments, :foreign_key => "payer_id"
+
   validates_presence_of :email
   validates_presence_of :password
 
@@ -7,10 +14,6 @@ class User < ActiveRecord::Base
   validate :valid_confirmation
 
   attr_accessible :email, :password, :confirm
-
-  has_many :memberships
-  has_many :expenses
-  has_many :groups, :through => :memberships
 
   private
 

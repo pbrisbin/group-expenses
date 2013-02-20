@@ -5,6 +5,8 @@ class CreateExpenses < ActiveRecord::Migration
       t.integer :group_id, :null => false
       t.string  :comment,  :null => false, :default => ''
       t.integer :amount_in_cents, :null => false, :default => 0
+
+      t.timestamps
     end
   end
 

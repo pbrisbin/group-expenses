@@ -35,12 +35,18 @@ class Debt
     amt  = expenses_paid(owee)
     amt -= expenses_paid(ower)
     amt /= group.users.size
+    amt -= payments_made(ower, owee)
+    amt += payments_made(owee, ower)
 
     amt
   end
 
   def expenses_paid(user)
     user.expenses.for_group(group).sum(&:amount).to_money
+  end
+
+  def payments_made(from, to)
+    from.payments.for_group(group).to_user(to).sum(&:amount).to_money
   end
 
 end

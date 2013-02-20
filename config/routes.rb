@@ -10,6 +10,8 @@ GrpExp::Application.routes.draw do
 
   resources :expenses
 
+  resources :payments
+
   root :to => 'dashboard#show'
 
 end

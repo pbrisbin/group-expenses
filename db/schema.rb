@@ -11,13 +11,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130220001125) do
+ActiveRecord::Schema.define(:version => 20130220225228) do
 
   create_table "expenses", :force => true do |t|
-    t.integer "user_id",                         :null => false
-    t.integer "group_id",                        :null => false
-    t.string  "comment",         :default => "", :null => false
-    t.integer "amount_in_cents", :default => 0,  :null => false
+    t.integer  "user_id",                         :null => false
+    t.integer  "group_id",                        :null => false
+    t.string   "comment",         :default => "", :null => false
+    t.integer  "amount_in_cents", :default => 0,  :null => false
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
   end
 
   create_table "groups", :force => true do |t|
@@ -30,6 +32,15 @@ ActiveRecord::Schema.define(:version => 20130220001125) do
   create_table "memberships", :force => true do |t|
     t.integer "user_id",  :null => false
     t.integer "group_id", :null => false
+  end
+
+  create_table "payments", :force => true do |t|
+    t.integer  "group_id",                       :null => false
+    t.integer  "payer_id",                       :null => false
+    t.integer  "payee_id",                       :null => false
+    t.integer  "amount_in_cents", :default => 0, :null => false
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
   end
 
   create_table "users", :force => true do |t|
