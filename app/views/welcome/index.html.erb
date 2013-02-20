@@ -38,18 +38,22 @@
     </div>
   </section>
 
-  <div class="row">
-    <%= link_to "Sign out", session_path, :method => :delete %>
-  </div>
+  <section class="account-actions row">
+    <div class="row">
+      <%= link_to "Sign out", session_path, :method => :delete %>
+    </div>
+  </section>
 
 <% else %>
 
-  <div class="row">
-    <%= link_to "Sign in", new_session_path %>
-  </div>
+  <section class="account-actions row">
+    <div class="row">
+      <%= link_to "Sign in", new_session_path %>
+    </div>
 
-  <div class="row">
-    <%= link_to "Sign up", new_profile_path %>
-  </div>
+    <div class="row">
+      <%= link_to "Sign up", new_profile_path %>
+    </div>
+  </section>
 
 <% end %>
