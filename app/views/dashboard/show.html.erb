@@ -9,13 +9,9 @@
   <section id="groups" class="row">
     <hr>
     <h3>Your groups</h3>
-
-    <% if @groups.any? %>
-      <% @groups.each do |group| %>
-        <%= render 'group', :group => group %>
-      <% end %>
+    <% @groups.each do |group| %>
+      <%= render 'group', :group => group %>
     <% end %>
-
   </section>
 
   <section id="account-actions" class="row">
