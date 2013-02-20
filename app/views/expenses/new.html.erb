@@ -1,0 +1,9 @@
+<%= form_tag expenses_path do %>
+  <%= hidden_field_tag :group_id, @group_id %>
+
+  <label for="amount">Amount</label>
+  <%= number_field_tag :amount %>
+  <label for="comment">Comment</label>
+  <%= text_field_tag :comment %>
+  <%= submit_tag 'Submit' %>
+<% end %>

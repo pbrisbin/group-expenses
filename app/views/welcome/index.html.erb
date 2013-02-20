@@ -1,21 +1,55 @@
 <% if !!current_user %>
-  <div class="row">
-    <%= link_to "Your groups", groups_path %>
-  </div>
-  <div class="row">
-    <%= link_to "New group", new_group_path %>
-  </div>
-  <div class="row">
-    <%= link_to "Join group", new_membership_path %>
-  </div>
+
+  <section class="groups row">
+    <div class="groups-list row">
+      <% if @groups.any? %>
+        <ul>
+          <% @groups.each do |group| %>
+            <li class="group-list-item">
+              <div class="name row">
+                Group - <%= group.name %>
+              </div>
+
+              <div class="new-expense row">
+                <%= link_to "New expense", new_expense_path(:group_id => group.id) %>
+              </div>
+
+              <div class="totals row">
+
+              </div>
+
+              <div class="token row">
+                <span class="label">Token</span>
+                <span class="content"><%= group.join_token %></span>
+              </div>
+            </li>
+          <% end %>
+        </ul>
+      <% end %>
+    </div>
+  </section>
+
+  <section class="group-actions row">
+    <div class="row">
+      <%= link_to "Start a new group", new_group_path %>
+    </div>
+    <div class="row">
+      <%= link_to "Join an existing group", new_membership_path %>
+    </div>
+  </section>
+
   <div class="row">
     <%= link_to "Sign out", session_path, :method => :delete %>
   </div>
+
 <% else %>
+
   <div class="row">
     <%= link_to "Sign in", new_session_path %>
   </div>
+
   <div class="row">
     <%= link_to "Sign up", new_profile_path %>
   </div>
+
 <% end %>

@@ -27,4 +27,15 @@ class ApplicationController < ActionController::Base
     redirect_to default
   end
 
+  def rescuing_back
+
+    yield
+
+  rescue => ex
+    logger.error("#{ex}: #{ex.backtrace.join("\t\n")}")
+
+    flash[:error] = "#{ex.message}"
+    redirect_back
+  end
+
 end

@@ -7,20 +7,16 @@ class MembershipsController < ApplicationController
   end
 
   def create
-    group = Group.find_by_join_token(params[:token])
+    rescuing_back do
+      group = Group.find_by_join_token(params[:token])
 
-    raise "Group not found" if group.nil?
+      raise "Group not found" if group.nil?
 
-    group.users << current_user
-    group.save!
+      group.users << current_user
+      group.save!
 
-    flash[:notice] = "Group joined"
-    redirect_to group
-
-  rescue => ex
-    logger.error "#{ex}: #{ex.backtrace.join("\t\n")}"
-
-    flash[:error] = "#{ex}"
-    redirect_to :action => :new
+      flash[:notice] = "Group joined"
+      redirect_to :root
+    end
   end
 end
