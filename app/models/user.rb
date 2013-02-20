@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
   attr_accessible :email, :password, :confirm
 
   has_many :memberships
+  has_many :expenses
   has_many :groups, :through => :memberships
 
   private

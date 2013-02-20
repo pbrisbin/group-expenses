@@ -1,5 +1,5 @@
 Given /^a group with members "(.*)"$/i do |names|
-  members = names.split(/ *, *(and *)?/)
+  members = names.split(/,/).map {|s| s.strip.gsub(/^and */, '') }
 
   members.each { |name| sign_up(name) }
 

@@ -2,6 +2,8 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
   rescue_from(StandardError) do |ex|
+    raise ex if Rails.env.test?
+
     logger.error("#{ex}: #{ex.backtrace.join("\t\n")}")
 
     flash[:error] = "#{ex.message}"

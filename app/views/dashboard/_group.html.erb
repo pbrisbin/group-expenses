@@ -1,9 +1,15 @@
 <div class="group">
   <h4 class="subheader"><%= group.name %></h4>
-
   <div class="situation">
-    <p>You owe so-and-so $X</p>
-    <p>So-and-so owes you $Y</p>
+    <% debts = Debts.new(group) %>
+
+    <% debts.owed_by(current_user).each do |debt| %>
+      <p>You owe <%= debt.owee %> $<%= debt.amount %></p>
+    <% end %>
+
+    <% debts.owed_to(current_user).each do |debt| %>
+      <p><%= debt.ower %> owes you $<%= debt.amount %></p>
+    <% end %>
   </div>
 
   <div class="actions">
@@ -11,5 +17,4 @@
     <%= link_to "Join link", new_membership_url(:token => group.join_token) %> | 
     <%= link_to "Leave group", "#" %>
   </div>
-
 </div>

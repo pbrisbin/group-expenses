@@ -14,9 +14,10 @@
 ActiveRecord::Schema.define(:version => 20130220001125) do
 
   create_table "expenses", :force => true do |t|
-    t.integer "user_id",                        :null => false
-    t.integer "group_id",                       :null => false
-    t.integer "amount_in_cents", :default => 0, :null => false
+    t.integer "user_id",                         :null => false
+    t.integer "group_id",                        :null => false
+    t.string  "comment",         :default => "", :null => false
+    t.integer "amount_in_cents", :default => 0,  :null => false
   end
 
   create_table "groups", :force => true do |t|
