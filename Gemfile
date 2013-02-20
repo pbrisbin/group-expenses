@@ -14,6 +14,7 @@ end
 
 gem 'jquery-rails'
 gem 'unicorn'
+gem 'money'
 
 group :test do
   gem 'timecop'
