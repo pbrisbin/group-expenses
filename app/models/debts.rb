@@ -1,42 +1,31 @@
 class Debts
-  Debt = Struct.new(:ower, :owee, :amount)
-
-  def initialize(group)
+  def initialize(user, group)
+    @user  = user
     @group = group
   end
 
-  def owed_to(user)
-    debts.select { |d| d.owee == user.email }
+  def owed_to
+    debts.select { |d| d.owed_to?(user) }
   end
 
-  def owed_by(user)
-    debts.select { |d| d.ower == user.email }
+  def owed_by
+    debts.select { |d| d.owed_by?(user) }
   end
 
   private
 
-  attr_reader :group
+  attr_reader :group, :user
 
   def debts
     @debts ||= calculate_debts
   end
 
   def calculate_debts
-    users = group.users
-    pairs = users.to_a.permutation(2)
+    pairs = group.users.to_a.permutation(2)
 
-    pairs.map do |user, other_user|
-      amount  = expenses_paid(other_user) - expenses_paid(user)
-      amount /= users.size
-
-      if amount > 0.to_money
-        Debt.new(user.email, other_user.email, amount)
-      end
-    end.compact
-  end
-
-  def expenses_paid(user)
-    user.expenses.for_group(group).sum(&:amount).to_money
+    pairs.map do |ower, owee|
+      Debt.new(ower, owee, group)
+    end
   end
 
 end

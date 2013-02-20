@@ -1,14 +1,15 @@
 <div class="group">
   <h4 class="subheader"><%= group.name %></h4>
-  <div class="situation">
-    <% debts = Debts.new(group) %>
 
-    <% debts.owed_by(current_user).each do |debt| %>
-      <p>You owe <%= debt.owee %> $<%= debt.amount %></p>
+  <div class="situation">
+    <% debts = Debts.new(current_user, group) %>
+
+    <% debts.owed_by.each do |debt| %>
+      <p>You owe <%= debt.owee.email %> $<%= debt.amount %></p>
     <% end %>
 
-    <% debts.owed_to(current_user).each do |debt| %>
-      <p><%= debt.ower %> owes you $<%= debt.amount %></p>
+    <% debts.owed_to.each do |debt| %>
+      <p><%= debt.ower.email %> owes you $<%= debt.amount %></p>
     <% end %>
   </div>
 
