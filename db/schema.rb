@@ -11,7 +11,13 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130216190216) do
+ActiveRecord::Schema.define(:version => 20130220001125) do
+
+  create_table "expenses", :force => true do |t|
+    t.integer "user_id",                        :null => false
+    t.integer "group_id",                       :null => false
+    t.integer "amount_in_cents", :default => 0, :null => false
+  end
 
   create_table "groups", :force => true do |t|
     t.string "name",       :default => "", :null => false

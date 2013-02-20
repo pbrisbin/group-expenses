@@ -8,6 +8,8 @@ GrpExp::Application.routes.draw do
 
   resources :memberships
 
+  resources :expenses
+
   root :to => 'welcome#index'
 
 end
