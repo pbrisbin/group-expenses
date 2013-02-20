@@ -9,15 +9,12 @@
   <body>
     <header class="row">
       <h1>Group Expenses</h1>
-      <h4 class="subheader">They suck!</h4>
+      <h4 class="subheader">They suck. Let us figure them out.</h4>
     </header>
 
-    <div class="row">
-      <section>
-        <%= render :partial => 'flashes' %>
-        <%= yield %>
-      </section>
-    </div>
-
+    <section class="row">
+      <%= render :partial => 'flashes' %>
+      <%= yield %>
+    </section>
   </body>
 </html>

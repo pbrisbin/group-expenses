@@ -12,3 +12,11 @@
  *= require foundation_and_overrides
  *= require_tree .
  */
+#account-actions {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+#groups .group {
+  margin-left: 25px;
+}
