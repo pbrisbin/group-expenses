@@ -6,10 +6,4 @@ require 'active_support/dependencies'
   ActiveSupport::Dependencies.autoload_paths << dir
 end
 
-module ActiveRecord
-  class Base
-    def self.has_many(*); end
-    def self.belongs_to(*); end
-    def self.has_and_belongs_to_many(*); end
-  end
-end
+require 'money'
